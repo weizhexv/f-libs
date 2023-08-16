@@ -1,0 +1,29 @@
+logging:
+  level:
+    root: info
+    com.jkqj: debug
+mq:
+  nats:
+    pool-size: 10
+    replicas: 2
+    servers:
+      - nats://127.0.0.1:4222
+    connection-name: jkqj-mq
+    username: jkqj_mq
+    password: cswjggljrmpypwfccarzpjxG-urepqldkhecvnzxzmngotaqs-bkwdvjgipruectqcowoqb6nj
+
+spring:
+  application:
+    name: b-server
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: true
+      connection-timeout: 20000
+      idle-timeout: 10000
+      max-lifetime: 1000
+      maximum-pool-size: 20
+      minimum-idle: 1
+    password: 12345678
+    url: jdbc:mysql://127.0.0.1:3306/jkqj_all?characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&queryInterceptors=com.jkqj.mysql.extension.interceptor.SqlTraceQueryInterceptor
+    username: root

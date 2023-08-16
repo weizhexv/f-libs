@@ -1,0 +1,212 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+</head>
+<body style="font-family: 'Microsoft YaHei';">
+
+<div id="basic">
+    <p style="text-align:center; font-size:14pt">
+        <span style="font-weight:bold" th:text="${basic.name}">姓名</span>
+    </p>
+    <p style="text-align:center; line-height:16.3pt; font-size:8pt;">
+        <span th:text="${basic.mobile ?: '-'}">手机号</span>
+        <span>|</span>
+        <span th:text="${basic.email ?: '-'}">邮件</span>
+    </p>
+    <p style="text-align:center; line-height:16.3pt; font-size:8pt;">
+        <span th:if="${basic.sex != null and basic.sex != ''}">
+            <span th:text="${basic.sex}">性别</span>
+            <span>|</span>
+        </span>
+
+        <span th:if="${basic.age != null}">
+            <span th:text="${basic.age}">年龄</span>
+            <span>|</span>
+        </span>
+
+        <span th:if="${basic.birth != null and basic.birth != ''}">
+            <span th:text="${basic.birth}">生日</span>
+            <span>|</span>
+        </span>
+
+        <span th:if="${basic.politicalStatus != null and basic.politicalStatus != ''}">
+            <span th:text="${basic.politicalStatus}">政治面貌</span>
+        </span>
+    </p>
+    <p style="text-align:center; line-height:16.3pt; font-size:8pt;">
+        <span th:if="${basic.jobState != null and basic.jobState != ''}">
+            <span th:text="${basic.jobState}">求职状态</span>
+            <span>|</span>
+        </span>
+
+        <span th:if="${basic.jobRole != null and basic.jobRole != ''}">
+            <span th:text="${basic.jobRole}">求职角色</span>
+            <span>|</span>
+        </span>
+
+        <span th:if="${basic.location != null and basic.location != ''}">
+            <span th:text="${basic.location}">地区</span>
+            <span>|</span>
+        </span>
+
+        <span th:if="${basic.vocation != null and basic.vocation != ''}">
+            <span th:text="${basic.vocation}">行业</span>
+        </span>
+    </p>
+    <br/>
+</div>
+
+<div id="advantage" th:if="${advantage != null and advantage.summary != null and advantage.summary != ''}">
+    <h1 style="font-size:10pt">
+        <span style="color:#4082ff">
+            个人优势
+        </span>
+    </h1>
+    <p style="font-size:8pt">
+        <span th:text="${advantage.summary}">优势描述</span>
+    </p>
+    <br/>
+</div>
+
+<div id="forwards" th:if="${forwards != null and forwards.size() > 0}">
+    <h1 style="font-size:10pt;">
+        <span style="color:#4082ff">
+            期望
+        </span>
+    </h1>
+    <div th:each="forward : ${forwards}" style="font-size:8pt;">
+        <p>
+            <span th:text="${forward.title ?: '-'}">职位</span>
+
+            <span th:if="${forward.location != null and forward.location != ''}">
+                <span>|</span>
+                <span th:text="${forward.location}">地区</span>
+            </span>
+
+            <span th:if="${forward.jobType != null and forward.jobType != ''}">
+                <span>|</span>
+                <span th:text="${forward.jobType}">工作性质</span>
+            </span>
+
+            <span th:if="${forward.vocation != null and forward.vocation != ''}">
+                <span>|</span>
+                <span th:text="${forward.vocation}">行业</span>
+            </span>
+
+            <span th:if="${forward.salaryFrom != null and forward.salaryFrom != ''}">
+                <span>|</span>
+                <span th:text="${forward.salaryFrom}">薪资</span>
+            </span>
+        </p>
+        <br/>
+    </div>
+</div>
+
+<div id="edus" th:if="${edus != null and edus.size() > 0}">
+    <h1 style="font-size:10pt;">
+        <span style="color:#4082ff">
+            教育经历
+        </span>
+    </h1>
+    <div th:each="edu : ${edus}" style="font-size:8pt;">
+        <p>
+            <span style="font-weight:bold" th:text="${edu.school}">学校</span>
+            <span style="white-space:nowrap; float:right;" th:text="${edu.start} + ' ~ ' + ${edu.end}">起止时间</span>
+        </p>
+        <p th:if="${edu.speciality != null}">
+            <span th:text="${edu.speciality} + '  ' + ${edu.education}">专业和学历</span>
+        </p>
+        <p th:if="${edu.summary != null}">
+            <span th:text="${edu.summary}">经历描述</span>
+        </p>
+        <br/>
+    </div>
+</div>
+
+<div id="works" th:if="${works != null and works.size() > 0}">
+    <h1 style="font-size:10pt;">
+        <span style="color:#4082ff">
+            工作经历
+        </span>
+    </h1>
+    <div th:each="work : ${works}" style="font-size:8pt;">
+        <p>
+            <span style="font-weight:bold" th:text="${work.company}">公司名称</span>
+            <span style="white-space:nowrap; float:right;" th:text="${work.start} + ' ~ ' + ${work.end}">起止时间</span>
+        </p>
+        <p th:if="${work.title} != null">
+            <span th:text="${work.title}">职位标题</span>
+        </p>
+        <p th:if="${work.summary != null}">
+            <span th:text="${work.summary}">工作描述</span>
+        </p>
+        <br/>
+    </div>
+</div>
+
+<div id="projects" th:if="${projects != null and projects.size() > 0}">
+    <h1 style="font-size:10pt;">
+        <span style="color:#4082ff">
+            项目经历
+        </span>
+    </h1>
+    <div th:each="project : ${projects}" style="font-size:8pt;">
+        <p>
+            <span style="font-weight:bold" th:text="${project.projectName}">项目名称</span>
+            <span style="white-space:nowrap; float:right;" th:text="${project.start} + ' ~ ' + ${project.end}">起止时间</span>
+        </p>
+        <p th:if="${project.title} != null">
+            <span th:text="${project.title}">职位标题</span>
+        </p>
+        <p th:if="${project.summary != null}">
+            <span th:text="${project.summary}">项目描述</span>
+        </p>
+        <br/>
+    </div>
+</div>
+
+<div id="trainings" th:if="${trainings != null and trainings.size() > 0}">
+    <h1 style="font-size:10pt;">
+        <span style="color:#4082ff">
+            培训经历
+        </span>
+    </h1>
+    <div th:each="training : ${trainings}" style="font-size:8pt;">
+        <p>
+            <span style="font-weight:bold" th:text="${training.trainingName}">培训名称</span>
+            <span style="white-space:nowrap; float:right;" th:text="${training.start} + ' ~ ' + ${training.end}">起止时间</span>
+        </p>
+        <p th:if="${training.institution} != null">
+            <span th:text="${training.institution}">机构</span>
+        </p>
+        <p th:if="${training.course} != null">
+            <span th:text="${training.course}">课程</span>
+        </p>
+        <p th:if="${training.certificate} != null">
+            <span th:text="${training.certificate}">证书</span>
+        </p>
+        <p th:if="${training.summary != null}">
+            <span th:text="${training.summary}">详细描述</span>
+        </p>
+        <br/>
+    </div>
+</div>
+
+<div id="certificates" th:if="${certificates != null and certificates.size() > 0}">
+    <h1 style="font-size:10pt;">
+        <span style="color:#4082ff">
+            证书
+        </span>
+    </h1>
+    <div th:each="certificate : ${certificates}" style="font-size:8pt;">
+        <p>
+            <span style="font-weight:bold" th:text="${certificate.certificate}">证书名称</span>
+            <span style="white-space:nowrap; float:right;" th:text="${certificate.date}">证书日期</span>
+        </p>
+        <br/>
+    </div>
+</div>
+
+</body>
+</html>

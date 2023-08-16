@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+       Copyright 2015-2021 the original author or authors.
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this fileStore except in compliance with the License.
+       You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jkqj.eda.dal.mapper.DomainEventMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into domain_event (
+        id,
+        app_name,
+        category,
+        name,
+        header,
+        data,
+        uuid,
+        trace_id,
+        retry_count,
+        published,
+        created_at,
+        modified_at,
+        vsn
+        )
+        values (
+        #{id},
+        #{appName},
+        #{category},
+        #{name},
+        #{header},
+        #{data},
+        #{uuid},
+        #{traceId},
+        #{retryCount},
+        #{published},
+        #{createdAt},
+        #{modifiedAt},
+        #{vsn}
+        )
+    </insert>
+
+    <update id="updateById">
+        update domain_event
+        <set>
+            <if test="appName != null">
+                app_name = #{appName},
+            </if>
+            <if test="category != null">
+                category = #{category},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="header != null">
+                header = #{header},
+            </if>
+            <if test="data != null">
+                data = #{data},
+            </if>
+            <if test="uuid != null">
+                uuid = #{uuid},
+            </if>
+            <if test="traceId != null">
+                trace_id = #{traceId},
+            </if>
+            <if test="retryCount != null">
+                retry_count = #{retryCount},
+            </if>
+            <if test="published != null">
+                published = #{published},
+            </if>
+            <if test="modifiedAt != null">
+                modified_at = #{modifiedAt},
+            </if>
+            vsn = vsn + 1
+        </set>
+        where id = #{id}
+        <if test="vsn != null">
+            and vsn = #{vsn}
+        </if>
+    </update>
+
+    <select id="findById" resultType="com.jkqj.eda.dal.po.DomainEvent">
+        select * from domain_event
+        where id = #{id}
+    </select>
+
+    <select id="find" resultType="com.jkqj.eda.dal.po.DomainEvent">
+        select * from domain_event
+        where app_name = #{appName}
+        and created_at &gt;= #{startAt}
+        and published = 0
+    </select>
+
+    <update id="incRetryCount">
+        update domain_event
+        set retry_count = retry_count + 1
+        where id = #{id}
+    </update>
+</mapper>
